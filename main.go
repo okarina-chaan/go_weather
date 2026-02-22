@@ -18,3 +18,14 @@ func main() {
 	)
 	fmt.Println(weatherAPIURL)
 }
+
+type WeatherResponse struct {
+	Latitude  float64    `json:"latitude"`
+	Longitude float64    `json:"longitude"`
+	Hourly    HourlyData `json:"hourly"`
+}
+
+type HourlyData struct {
+	Time          []string  `json:"time"`
+	Temperature2m []float64 `json:"temperature_2m"`
+}
