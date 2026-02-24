@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"net/http"
 )
 
 const (
@@ -16,7 +17,14 @@ func main() {
 		"https://api.open-meteo.com/v1/forecast?latitude=%f&longitude=%f&hourly=temperature_2m",
 		latitude, longitude,
 	)
-	fmt.Println(weatherAPIURL)
+	resp, err := http.Get(weatherAPIURL)
+	if err != nil {
+		fmt.Printf("Error fetching weather data: %v\n", err)
+		return
+	}
+	defer resp.Body.Close()
+
+	fmt.Println("Status:", resp.Status)
 }
 
 type WeatherResponse struct {
