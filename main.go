@@ -1,7 +1,9 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
 )
 
@@ -24,7 +26,26 @@ func main() {
 	}
 	defer resp.Body.Close()
 
-	fmt.Println("Status:", resp.Status)
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		fmt.Printf("Error reading response: %v\n", err)
+		return
+	}
+
+	// JSONをパースして構造体に格納
+	var weather WeatherResponse
+	err = json.Unmarshal(body, &weather)
+	if err != nil {
+		fmt.Printf("Error parsing JSON: %v\n", err)
+		return
+	}
+
+	// 結果を表示
+	fmt.Printf("Tokyo Weather:\n")
+	fmt.Printf("Latitude: %f, Longitude: %f\n", weather.Latitude, weather.Longitude)
+	fmt.Printf("First temperature: %f°C at %s\n",
+		weather.Hourly.Temperature2m[0],
+		weather.Hourly.Time[0])
 }
 
 type WeatherResponse struct {
