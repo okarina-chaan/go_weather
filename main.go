@@ -7,10 +7,24 @@ import (
 	"net/http"
 )
 
-const (
-	TokyoLat = 35.6895
-	TokyoLon = 139.6917
-)
+type City struct {
+	Name      string
+	Latitude  float64
+	Longitude float64
+}
+
+var cities = []City{
+	{Name: "Tokyo", Latitude: 35.6895, Longitude: 139.6917},
+	{Name: "Osaka", Latitude: 34.6937, Longitude: 135.5023},
+	{Name: "Sapporo", Latitude: 43.0642, Longitude: 141.3469},
+	{Name: "Fukuoka", Latitude: 33.5904, Longitude: 130.4017},
+	{Name: "New York", Latitude: 40.7128, Longitude: -74.0060},
+	{Name: "London", Latitude: 51.5074, Longitude: -0.1278},
+	{Name: "Paris", Latitude: 48.8566, Longitude: 2.3522},
+	{Name: "Sydney", Latitude: -33.8688, Longitude: 151.2093},
+	{Name: "Singapore", Latitude: 1.3521, Longitude: 103.8198},
+	{Name: "Dubai", Latitude: 25.2048, Longitude: 55.2708},
+}
 
 func main() {
 	latitude := TokyoLat
